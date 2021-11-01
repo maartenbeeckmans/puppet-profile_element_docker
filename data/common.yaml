@@ -1,0 +1,8 @@
+---
+profile_element_docker::image: 'vectorim/element-web'
+profile_element_docker::listen_address: "0.0.0.0"
+profile_element_docker::listen_port: 8080
+profile_element_docker::config_file_path: '/etc/element.json'
+profile_element_docker::sd_service_name: 'element'
+profile_element_docker::sd_service_tags: []
+...
