@@ -9,6 +9,7 @@ class profile_element_docker (
   String        $homeserver_url,
   String        $homeserver_name,
   String        $jitsi_url,
+  Boolean       $manage_firewall_entry,
   String        $sd_service_name,
   Array[String] $sd_service_tags,
   Boolean       $manage_sd_service            = lookup('manage_sd_service', Boolean, first, true),
@@ -53,9 +54,11 @@ class profile_element_docker (
     volumes      => ["${config_file_path}:/app/config.json"],
   }
 
-  firewall { "0${listen_port} allow element":
-    dport  => $listen_port,
-    action => $accept,
+  if $manage_firewall_entry {
+    firewall { "0${listen_port} allow element":
+      dport  => $listen_port,
+      action => 'accept',
+    }
   }
 
   if $manage_sd_service {
